@@ -1,6 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using ZaibBook.DataAccess;
+using ZaibBook.DataAccess.Infrastructure.IRepository;
+using ZaibBook.DataAccess.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //service for DBConnection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+//Used service for UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
