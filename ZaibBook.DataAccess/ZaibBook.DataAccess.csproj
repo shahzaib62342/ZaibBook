@@ -16,8 +16,4 @@
     <ProjectReference Include="..\ZaibBook.Models\ZaibBook.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\Repository\" />
-  </ItemGroup>
-
 </Project>
