@@ -83,24 +83,16 @@ namespace ZaibBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isExist = _unitOfWork.Category.GetT(x => x.Name == obj.Name);
-                if (isExist == null)
-                {
                     _unitOfWork.Category.Update(obj);
                     _unitOfWork.Save();
                     TempData["success"] = "Category Updated Successfully";
                     return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["error"] = "Name already exist in database";
-                    return View(obj);
-                }
             }
             else
             {
                 return View(obj);
             }
+
 
         }
 

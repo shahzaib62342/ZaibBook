@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZaibBook.Models;
 
 namespace ZaibBook.DataAccess.Infrastructure.IRepository
 {
-    public interface IUnitOfWork
+    public interface IWriterRepository : IRepository<Writer>
     {
-        ICategoryRepository Category { get; }
-        IWriterRepository Writer { get; }
-
-        void Save();
+        void Update(Writer model);
     }
 }

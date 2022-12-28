@@ -12,7 +12,7 @@ namespace ZaibBook.DataAccess.Infrastructure.IRepository
     {
         IEnumerable<T> GetAll();
 
-        T GetT(Expression<Func<T, bool>> predicate);
+       public T GetT(Expression<Func<T, bool>> predicate);
 
         void Add(T entity);
 
