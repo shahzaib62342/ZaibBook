@@ -2,6 +2,7 @@
 
 
 <form method="post" asp-action="CreateUpdate">
+    <input asp-for="Category.ID" type="hidden" />
     <div class="border p-3 m-4">
         <div class="row pb-2">
             <h2 class="text-primary">@((Model.Category == null || Model.Category.ID == Guid.Empty) ? "Create" : "Update") Category</h2>

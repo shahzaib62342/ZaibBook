@@ -18,7 +18,7 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            CategoryVM vm=new CategoryVM();
+            CategoryVM vm = new CategoryVM();
             vm.categories = _unitOfWork.Category.GetAll();
             return View(vm);
         }
@@ -69,36 +69,48 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
             }
             else
             {
-                var CaregoryFromDb = _unitOfWork.Category.GetT(x => x.ID == id);
-                if (CaregoryFromDb == null)
+                vm.Category = _unitOfWork.Category.GetT(x => x.ID == id);
+                if (vm.Category == null)
                 {
                     return NotFound();
                 }
                 else
                 {
-                    return View(CaregoryFromDb);
+                    return View(vm);
                 }
             }
 
 
- 
+
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateUpdate(CategoryVM obj)
+        public IActionResult CreateUpdate(CategoryVM vm)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(obj.Category);
+                if (vm.Category.ID == Guid.Empty)
+                {
+
+                    _unitOfWork.Category.Add(vm.Category);
+                    TempData["success"] = "Category Added Successfully";
+
+                }
+                else
+                {
+                    _unitOfWork.Category.Update(vm.Category);
+                    TempData["success"] = "Category Updated Successfully";
+
+                }
                 _unitOfWork.Save();
-                TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");
+
             }
             else
             {
-                return View(obj);
+                return View(vm);
             }
 
 
