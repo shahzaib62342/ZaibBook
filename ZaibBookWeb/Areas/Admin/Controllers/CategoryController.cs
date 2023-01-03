@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Numerics;
-using ZaibBook.DataAccess;
 using ZaibBook.DataAccess.Infrastructure.IRepository;
-using ZaibBook.Models;
+using ZaibBook.Models.ViewModel;
 
 namespace ZaibBookWeb.Areas.Admin.Controllers
 {
@@ -21,8 +18,9 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Category> CategoriesList = _unitOfWork.Category.GetAll();
-            return View(CategoriesList);
+            CategoryVM vm=new CategoryVM();
+            vm.categories = _unitOfWork.Category.GetAll();
+            return View(vm);
         }
 
         //GET
@@ -63,10 +61,11 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
         //GET
         public IActionResult CreateUpdate(Guid? id)
         {
-            var category=new Category();
+            //Used ViewModel for Tightly Coupled issue
+            CategoryVM vm = new CategoryVM();
             if (!id.HasValue)
             {
-                return View(category);
+                return View(vm);
             }
             else
             {
@@ -88,11 +87,11 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateUpdate(Category obj)
+        public IActionResult CreateUpdate(CategoryVM obj)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Category.Add(obj.Category);
                 _unitOfWork.Save();
                 TempData["success"] = "Category Updated Successfully";
                 return RedirectToAction("Index");

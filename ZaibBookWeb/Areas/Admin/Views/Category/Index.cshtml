@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Category>
+﻿@*@model ZaibBook.Models.ViewModel.CategoryVM*@
+@model ZaibBook.Models.ViewModel.CategoryVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -43,7 +44,7 @@
     </thead>
     <tbody>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.categories)
             {
                 <tr>
                        <td width="30%">
