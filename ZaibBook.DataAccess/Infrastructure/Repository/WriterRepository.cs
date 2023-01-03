@@ -15,7 +15,7 @@ namespace ZaibBook.DataAccess.Infrastructure.Repository
             var _writer = _context.Writer.FirstOrDefault(x => x.Id == writer.Id);
             if (_writer != null)
             {
-                _writer.Name= writer.Name
+                _writer.Name = writer.Name;
             }
         }
     }
