@@ -1,0 +1,29 @@
+﻿@model ZaibBook.Models.ViewModel.WriterVM
+
+
+<form method="post" asp-action="CreateUpdate">
+    <input type="hidden" asp-for="Writer.Id" />
+    <div class="border p-3 m-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">@((Model.Writer == null || Model.Writer.Id == Guid.Empty) ? "Create" : "Update") Writer</h2>
+            <hr />
+        </div>
+        @*<div asp-validation-summary="All"></div>*@
+        <div class="mb-3">
+            <label asp-for="Writer.Name"></label>
+            <input asp-for="Writer.Name" class="form-control" type="text" />
+            <span asp-validation-for="Writer.Name" class="text-bg-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:150px">@((Model.Writer == null || Model.Writer.Id == Guid.Empty) ? "Create" : "Update")</button>
+        <a asp-controller="Writer" asp-action="Index"  style="width:150px" class="btn btn-secondary" >Back to List</a>
+    </div>
+</form>
+
+@*Use for Client side validation*@
+@section Scripts{
+@{
+        <partial name="_ValidationScriptsPartial" />
+}
+}
+

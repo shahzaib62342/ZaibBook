@@ -2,6 +2,7 @@
 using ZaibBook.DataAccess.Infrastructure.IRepository;
 using ZaibBook.DataAccess.Infrastructure.Repository;
 using ZaibBook.Models;
+using ZaibBook.Models.ViewModel;
 
 namespace ZaibBookWeb.Areas.Admin.Controllers
 {
@@ -16,82 +17,92 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Writer> writerList = _unitOfWork.Writer.GetAll();
-            return View(writerList);
+            WriterVM vm=new WriterVM();
+             vm.Writers = _unitOfWork.Writer.GetAll();
+            return View(vm);
         }
+
+        ////GET
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
+
+        ////POST
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Create(Writer writer)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var isExist = _unitOfWork.Writer.GetT(x => x.Name == writer.Name);
+        //        if (isExist == null)
+        //        {
+        //            _unitOfWork.Writer.Add(writer);
+        //            _unitOfWork.Save();
+        //            TempData["success"] = "Writer Created Successfully";
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //            TempData["error"] = "Name already found in database";
+        //            return View(writer);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return View(writer);
+        //    }
+        //}
 
         //GET
-        public IActionResult Create()
+        public IActionResult CreateUpdate(Guid? id)
         {
-            return View();
-        }
-
-        //POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Writer writer)
-        {
-            if (ModelState.IsValid)
-            {
-                var isExist = _unitOfWork.Writer.GetT(x => x.Name == writer.Name);
-                if (isExist == null)
-                {
-                    _unitOfWork.Writer.Add(writer);
-                    _unitOfWork.Save();
-                    TempData["success"] = "Writer Created Successfully";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["error"] = "Name already found in database";
-                    return View(writer);
-                }
-            }
-            else
-            {
-                return View(writer);
-            }
-        }
-
-        //GET
-        public IActionResult Edit(Guid? id)
-        {
+            WriterVM vm = new WriterVM();
             if (!id.HasValue)
             {
-                return NotFound();
+                return View(vm);
             }
-            var data = _unitOfWork.Writer.GetT(x => x.Id == id);
-            if (data == null)
+            else
             {
-                return NotFound();
+                vm.Writer = _unitOfWork.Writer.GetT(x => x.Id == id);
+                if (vm.Writer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+
+                    return View(vm);
+                }
             }
-            return View(data);
+
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Writer writer)
+        public IActionResult CreateUpdate(WriterVM vm)
         {
             if (ModelState.IsValid)
-            {
-                var isExist = _unitOfWork.Writer.GetT(x => x.Name == writer.Name);
-                if (isExist == null)
-                {
-                    _unitOfWork.Writer.Update(writer);
-                    _unitOfWork.Save();
-                    TempData["success"] = "Writer Updated Successfully";
-                    return RedirectToAction("Index");
+            {   
+                if(vm.Writer.Id == Guid.Empty) {
+                    _unitOfWork.Writer.Add(vm.Writer);
+                    TempData["success"] = "Writer Created Successfully";
+
                 }
                 else
                 {
-                    TempData["error"] = "Name already found in database";
-                    return View(writer);
+                    _unitOfWork.Writer.Update(vm.Writer);
+                    TempData["success"] = "Writer Updated Successfully";
                 }
+                _unitOfWork.Save();
+                return RedirectToAction("Index");
+
             }
             else
             {
-                return View(writer);
+                return View(vm);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Writer>
+﻿@model ZaibBook.Models.ViewModel.WriterVM
 @{
     ViewData["Title"] = "Index";
 }
@@ -16,7 +16,7 @@
       </form>*@
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Writer" asp-action="Create" class="btn btn-primary" >
+            <a asp-controller="Writer" asp-action="CreateUpdate" class="btn btn-primary" >
              <i class="bi bi-plus-circle"></i> &nbsp;
                 Create New Writer</a>
         </div>
@@ -43,7 +43,7 @@
     </thead>
     <tbody>
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Writers)
             {
                 <tr>
                        <td width="30%">
@@ -56,7 +56,7 @@
                         @item.CreatedDate
                     </td>
                      <td class="w-100 btn-group" role="group">
-                                    <a class="btn btn-primary mx-2" asp-controller="Writer" asp-action="Edit" asp-route-id="@item.Id" > <i class="bi bi-pencil"></i> &nbsp; Edit</a>
+                                    <a class="btn btn-primary mx-2" asp-controller="Writer" asp-action="CreateUpdate" asp-route-id="@item.Id" > <i class="bi bi-pencil"></i> &nbsp; Edit</a>
                                     <a class="btn btn-danger mx-2" asp-controller="Writer" asp-action="Delete" asp-route-id="@item.Id"> <i class="bi bi-trash"></i> &nbsp; Delete</a>
                      </td>
                 </tr>            
