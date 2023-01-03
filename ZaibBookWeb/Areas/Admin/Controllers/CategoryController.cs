@@ -5,16 +5,16 @@ using ZaibBook.DataAccess;
 using ZaibBook.DataAccess.Infrastructure.IRepository;
 using ZaibBook.Models;
 
-namespace ZaibBook.Controllers
+namespace ZaibBookWeb.Areas.Admin.Controllers
 {
-
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
         public CategoryController(IUnitOfWork unitOfWork)
         {
-          
+
             _unitOfWork = unitOfWork;
 
         }
@@ -24,7 +24,7 @@ namespace ZaibBook.Controllers
             IEnumerable<Category> CategoriesList = _unitOfWork.Category.GetAll();
             return View(CategoriesList);
         }
-    
+
         //GET
         public IActionResult Create()
         {
@@ -38,7 +38,7 @@ namespace ZaibBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isExist = _unitOfWork.Category.GetT(x=>x.Name== obj.Name);
+                var isExist = _unitOfWork.Category.GetT(x => x.Name == obj.Name);
                 if (isExist == null)
                 {
                     _unitOfWork.Category.Add(obj);
@@ -67,13 +67,13 @@ namespace ZaibBook.Controllers
             {
                 return NotFound();
             }
-            var CaregoryFromDb = _unitOfWork.Category.GetT(x=>x.ID == id);
+            var CaregoryFromDb = _unitOfWork.Category.GetT(x => x.ID == id);
             if (CaregoryFromDb == null)
             {
                 return NotFound();
             }
 
-                return View(CaregoryFromDb);
+            return View(CaregoryFromDb);
         }
 
         //POST
@@ -83,10 +83,10 @@ namespace ZaibBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                    _unitOfWork.Category.Update(obj);
-                    _unitOfWork.Save();
-                    TempData["success"] = "Category Updated Successfully";
-                    return RedirectToAction("Index");
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Category Updated Successfully";
+                return RedirectToAction("Index");
             }
             else
             {
@@ -114,17 +114,17 @@ namespace ZaibBook.Controllers
         }
 
         //POST
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(Guid ? id)
+        public IActionResult DeletePost(Guid? id)
         {
-            var objCategory= _unitOfWork.Category.GetT(x => x.ID == id);
+            var objCategory = _unitOfWork.Category.GetT(x => x.ID == id);
             if (objCategory == null)
             {
                 return NotFound();
             }
-                _unitOfWork.Category.Delete(objCategory);
-                _unitOfWork.Save();
+            _unitOfWork.Category.Delete(objCategory);
+            _unitOfWork.Save();
             TempData["success"] = "Category Deleted Successfully";
 
 

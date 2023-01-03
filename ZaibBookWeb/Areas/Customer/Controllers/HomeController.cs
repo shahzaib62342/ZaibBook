@@ -2,8 +2,9 @@
 using System.Diagnostics;
 using ZaibBook.Models;
 
-namespace ZaibBook.Controllers
+namespace ZaibBookWeb.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

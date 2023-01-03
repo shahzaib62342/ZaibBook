@@ -3,8 +3,9 @@ using ZaibBook.DataAccess.Infrastructure.IRepository;
 using ZaibBook.DataAccess.Infrastructure.Repository;
 using ZaibBook.Models;
 
-namespace ZaibBookWeb.Controllers
+namespace ZaibBookWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class WriterController : Controller
     {
         private IUnitOfWork _unitOfWork;
