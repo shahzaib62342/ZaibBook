@@ -26,60 +26,69 @@ namespace ZaibBookWeb.Areas.Admin.Controllers
         }
 
         //GET
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        //POST
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Category obj)
+        ////POST
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Create(Category obj)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var isExist = _unitOfWork.Category.GetT(x => x.Name == obj.Name);
+        //        if (isExist == null)
+        //        {
+        //            _unitOfWork.Category.Add(obj);
+        //            _unitOfWork.Save();
+        //            TempData["success"] = "Category Added Successfully";
+        //            return RedirectToAction("Index");
+        //        }
+        //        else
+        //        {
+        //            TempData["error"] = "Name already exist in database";
+        //            return View(obj);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        return View(obj);
+        //    }
+
+        //}
+
+        //GET
+        public IActionResult CreateUpdate(Guid? id)
         {
-            if (ModelState.IsValid)
+            var category=new Category();
+            if (!id.HasValue)
             {
-                var isExist = _unitOfWork.Category.GetT(x => x.Name == obj.Name);
-                if (isExist == null)
-                {
-                    _unitOfWork.Category.Add(obj);
-                    _unitOfWork.Save();
-                    TempData["success"] = "Category Added Successfully";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["error"] = "Name already exist in database";
-                    return View(obj);
-                }
-
+                return View(category);
             }
             else
             {
-                return View(obj);
+                var CaregoryFromDb = _unitOfWork.Category.GetT(x => x.ID == id);
+                if (CaregoryFromDb == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return View(CaregoryFromDb);
+                }
             }
 
-        }
 
-        //GET
-        public IActionResult Edit(Guid? id)
-        {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-            var CaregoryFromDb = _unitOfWork.Category.GetT(x => x.ID == id);
-            if (CaregoryFromDb == null)
-            {
-                return NotFound();
-            }
-
-            return View(CaregoryFromDb);
+ 
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category obj)
+        public IActionResult CreateUpdate(Category obj)
         {
             if (ModelState.IsValid)
             {
