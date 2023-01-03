@@ -18,7 +18,18 @@ namespace ZaibBook.DataAccess.Infrastructure.Repository
 
         public void Update(Product product)
         {
-            _context.Products.Update(product);
+            var _product = _context.Products.FirstOrDefault(x => x.Id == product.Id);
+            if (_product != null)
+            {
+                _product.Name = product.Name;
+                _product.Description = product.Description;
+                _product.Category = product.Category;
+                _product.Price = product.Price;
+                if (product.ImageUrl != null)
+                {
+                    _product.ImageUrl = product.ImageUrl;
+                }
+            }
         }
     }
 }

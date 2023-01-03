@@ -18,7 +18,13 @@ namespace ZaibBook.DataAccess.Infrastructure.Repository
 
         public void Update(Category category)
         {
-            _context.Categories.Update(category);
+            var _category = _context.Categories.FirstOrDefault(x=>x.ID==category.ID);
+            if (_category != null)
+            {
+                _category.Name = category.Name;
+                _category.DisplayOrder = category.DisplayOrder;
+            }
+            
         }
     }
 }

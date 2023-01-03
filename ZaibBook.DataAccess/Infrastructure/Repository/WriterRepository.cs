@@ -12,7 +12,11 @@ namespace ZaibBook.DataAccess.Infrastructure.Repository
         }
         public void Update(Writer writer)
         {
-            _context.Writer.Update(writer);
+            var _writer = _context.Writer.FirstOrDefault(x => x.Id == writer.Id);
+            if (_writer != null)
+            {
+                _writer.Name= writer.Name
+            }
         }
     }
 }
