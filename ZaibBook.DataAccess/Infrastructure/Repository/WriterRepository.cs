@@ -12,7 +12,7 @@ namespace ZaibBook.DataAccess.Infrastructure.Repository
         }
         public void Update(Writer writer)
         {
-            _context.Update(writer);
+            _context.Writer.Update(writer);
         }
     }
 }

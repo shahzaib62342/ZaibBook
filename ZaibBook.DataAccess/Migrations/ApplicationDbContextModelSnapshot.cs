@@ -8,7 +8,7 @@ using ZaibBook.DataAccess;
 
 #nullable disable
 
-namespace ZaibBook.Migrations
+namespace ZaibBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -43,6 +43,37 @@ namespace ZaibBook.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("ZaibBook.Models.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("ZaibBook.Models.Writer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -59,6 +90,17 @@ namespace ZaibBook.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Writer");
+                });
+
+            modelBuilder.Entity("ZaibBook.Models.Product", b =>
+                {
+                    b.HasOne("ZaibBook.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

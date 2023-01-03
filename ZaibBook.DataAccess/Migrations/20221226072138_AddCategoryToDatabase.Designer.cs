@@ -10,7 +10,7 @@ using ZaibBook.DataAccess;
 
 #nullable disable
 
-namespace ZaibBook.Migrations
+namespace ZaibBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20221226072138_AddCategoryToDatabase")]

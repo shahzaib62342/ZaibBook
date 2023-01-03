@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZaibBook.DataAccess.Infrastructure.Repository;
+using ZaibBook.Models;
 
 namespace ZaibBook.DataAccess.Infrastructure.IRepository
 {
-    public interface IUnitOfWork
+    public interface IProductRepository : IRepository<Product>
     {
-        ICategoryRepository Category { get; }
-        IWriterRepository Writer { get; }
-        IProductRepository Product { get; }
-
-        void Save();
+        void Update(Product product);
     }
 }
