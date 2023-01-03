@@ -16,7 +16,7 @@
       </form>*@
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary" >
+            <a asp-controller="Category" asp-action="CreateUpdate" class="btn btn-primary" >
              <i class="bi bi-plus-circle"></i> &nbsp;
                 Create New Category</a>
         </div>
@@ -56,7 +56,7 @@
                         @item.DisplayOrder
                     </td>
                      <td class="w-100 btn-group" role="group">
-                                    <a class="btn btn-primary mx-2" asp-controller="Category" asp-action="Edit" asp-route-id="@item.ID" > <i class="bi bi-pencil"></i> &nbsp; Edit</a>
+                                    <a class="btn btn-primary mx-2" asp-controller="Category" asp-action="CreateUpdate" asp-route-id="@item.ID" > <i class="bi bi-pencil"></i> &nbsp; Edit</a>
                                     <a class="btn btn-danger mx-2" asp-controller="Category" asp-action="Delete" asp-route-id="@item.ID"> <i class="bi bi-trash"></i> &nbsp; Delete</a>
                      </td>
                 </tr>            
