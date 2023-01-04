@@ -1,0 +1,86 @@
+﻿@model ZaibBook.Models.ViewModel.ProductVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="container p-3">
+
+    <div class="row p-4">
+        <div class="col-6">
+            <h2 class="text-primary">Product List</h2>
+            @*                      <form class="d-flex" >
+        <input class="form-control me-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>*@
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Product" asp-action="CreateUpdate" class="btn btn-primary" >
+             <i class="bi bi-plus-circle"></i> &nbsp;
+                Create New Product</a>
+        </div>
+    </div>
+
+
+<table class="table table-bordered table-striped" style="width:100%">
+
+    <thead> 
+        <tr>
+            <th>
+             Product Name
+            </th>
+            <th>
+             Product Description
+            </th>
+            <th>
+             Product Price
+            </th>
+            <th>
+             Category
+            </th>
+             <th>
+             Writer
+            </th>
+             <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+            @foreach (var item in Model.Products)
+            {
+                  <tr>
+                       <td width="30%">
+                        @item.Name
+                       </td>
+                       <td width="20%">
+                        @item.Description
+                       </td>
+                       <td width="30%">
+                        @item.Price
+                       </td>
+                       <td width="20%">
+                        @item.CategoryId
+                       </td>
+                       <td width="20%">
+                        @item.WriterId
+                       </td>
+                       <td class="w-100 btn-group" role="group">
+                       <a class="btn btn-primary mx-2" asp-controller="Product" asp-action="CreateUpdate" asp-route-id="@item.Id" > <i class="bi bi-pencil"></i> &nbsp; Edit</a>
+                       <a class="btn btn-danger mx-2" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id"> <i class="bi bi-trash"></i> &nbsp; Delete</a>
+                       </td>
+                  </tr>            
+            }
+
+    </tbody>
+</table>
+
+
+</div>
+
+@section Scripts{
+
+}
+

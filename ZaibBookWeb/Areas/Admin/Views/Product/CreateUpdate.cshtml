@@ -1,0 +1,77 @@
+﻿@model ZaibBook.Models.ViewModel.ProductVM
+
+
+<form method="post" asp-action="CreateUpdate" enctype="multipart/form-data">
+    <input asp-for="Product.Id" type="hidden" />
+    <div class="border p-3 m-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">@((Model.Product == null || Model.Product.Id == Guid.Empty) ? "Create" : "Update") Product</h2>
+            <hr />
+        </div>
+        @*<div asp-validation-summary="All"></div>*@
+        <div class="mb-3">
+            <label asp-for="Product.Name"></label>
+            <input asp-for="Product.Name" class="form-control" type="text" />
+            <span asp-validation-for="Product.Name" class="text-bg-danger"></span>
+        </div>
+         <div class="mb-3">
+            <label asp-for="Product.Description"></label>
+            <textarea asp-for="Product.Description" class="form-control" ></textarea>
+            <span asp-validation-for="Product.Description" class="text-bg-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Product.Price"></label>
+            <input asp-for="Product.Price" class="form-control" type="text" />
+            <span asp-validation-for="Product.Price" class="text-bg-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.ImageUrl"></label>
+            <input id="imageUrl" class="form-select" type="file" name="file" />
+          
+        </div>
+
+        @*Product Categories List coming from ProductVM SelecctedListItem*@
+        <div class="mb-3">
+            <label asp-for="Product.CategoryId"></label>
+            <select asp-for="Product.CategoryId" asp-items="Model.Categories"  class="form-control" >
+                <option selected disabled>-- Select Category --</option>
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-bg-danger"></span>
+        </div>
+        @*Product Writers List coming from ProductVM SelecctedListItem*@
+         <div class="mb-3">
+            <label asp-for="Product.WriterId"></label>
+            <select asp-for="Product.WriterId" asp-items="Model.Writers"  class="form-control" >
+             <option selected disabled>-- Select Writer --</option>
+            </select>
+            <span asp-validation-for="Product.WriterId" class="text-bg-danger"></span>
+        </div>
+
+        <button type="submit" onclick="return checkImage()" class="btn btn-primary" style="width:150px">@((Model.Product == null || Model.Product.Id == Guid.Empty) ? "Create" : "Update")</button>
+        <a asp-controller="Product" asp-action="Index"  style="width:150px" class="btn btn-secondary" >Back to List</a>
+    </div>
+</form>
+
+@*Use for Client side validation*@
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        function checkImage(){
+        
+                if(document.getElementById("imageUrl").value==""){
+      Swal.fire({
+      icon: 'error',
+      title: 'Select image',
+      text: 'Please select product image',
+
+    })
+    return fale;
+            }
+            return true;
+        }
+    </script>
+}
+
