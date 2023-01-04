@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,10 +18,13 @@ namespace ZaibBook.Models
         public string Description { get; set; }
         [Required]
         public double Price { get; set; }
+        [ValidateNever]
         public string ImageUrl { get; set; }
         public Guid CategoryId { get; set; }
         public Guid WriterId { get; set; }
+        [ValidateNever]
         public Category Category { get; set; }
+        [ValidateNever]
         public Writer Writer { get; set; }
     }
 }
