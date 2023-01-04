@@ -20,4 +20,8 @@
     <ProjectReference Include="..\ZaibBook.DataAccess\ZaibBook.DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\ProductImages\" />
+  </ItemGroup>
+
 </Project>
